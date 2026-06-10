@@ -15,16 +15,12 @@ MainWindow::MainWindow(QWidget *parent)
     COMPORT->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
     COMPORT->open(QSerialPort::ReadWrite);
 
-    if(COMPORT->isOpen())
-    {
+    if (COMPORT->isOpen()) {
         qDebug() << "Serial Port is Connected.";
 
-    }
-    else
-    {
+    } else {
         qDebug() << "Serial Port is not Connected.";
         qDebug() << COMPORT->error();
-
     }
 }
 
@@ -33,25 +29,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::on_pushButton_Send_clicked()
 {
     QByteArray StartCom = QByteArray::fromHex("02011601");
-    if(COMPORT->isOpen())
-    {
-
-
+    if (COMPORT->isOpen()) {
         COMPORT->write(StartCom);
         qDebug() << StartCom;
-    }
-    else
-    {
+    } else {
         COMPORT->write(StartCom);
         qDebug() << StartCom;
-
-
     }
 }
 
 //COMPORT->write(ui->lineEdit_Serial_Data->text().toLatin1() + char(02) + char(1) + char(16) + char (1));
-

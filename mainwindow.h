@@ -1,11 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QDebug>
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QSerialPort>
 #include <QString>
-#include <QMessageBox>
-#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,6 +26,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QSerialPort* COMPORT;
+    QSerialPort *COMPORT;
 };
 #endif // MAINWINDOW_H
