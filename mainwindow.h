@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QSerialPort>
+#include <QSerialPortInfo>
 #include <QString>
 
 QT_BEGIN_NAMESPACE
@@ -20,9 +21,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void InitCOM();
 
 private slots:
     void on_pushButton_Send_clicked();
+
+    void on_comboBox_activated(int index);
 
 private:
     Ui::MainWindow *ui;

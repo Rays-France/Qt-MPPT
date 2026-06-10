@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>407</width>
-    <height>116</height>
+    <width>530</width>
+    <height>346</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,13 +37,23 @@
      <string>Init Com</string>
     </property>
    </widget>
+   <widget class="QComboBox" name="COMBox">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>160</y>
+      <width>121</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>407</width>
+     <width>530</width>
      <height>22</height>
     </rect>
    </property>
