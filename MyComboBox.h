@@ -13,6 +13,7 @@ signals:
 public:
     using QComboBox::QComboBox;
 
+
 protected:
     void showPopup() override {
         emit aboutToPopup();

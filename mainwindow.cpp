@@ -32,6 +32,7 @@ void MainWindow::InitCOM()
 
     //Config Liste Port COM
     MyComboBox *myCombo = new MyComboBox(this);
+    myCombo->setGeometry(110,30,150,20);
     connect(myCombo,&MyComboBox::aboutToPopup, this,&MainWindow::ReloadCOMList);
 
     const auto listPorts = QSerialPortInfo::availablePorts();
@@ -48,6 +49,7 @@ void MainWindow::InitCOM()
     myCombo->adjustSize();
 
 
+
     //COMPORT->open(QSerialPort::ReadWrite);
 
 }
@@ -55,13 +57,16 @@ void MainWindow::InitCOM()
 
 void MainWindow::ReloadCOMList()
 {
-    ui->COMBox->clear();
+    myCombo->clear();
 
+    const auto listPorts = QSerialPortInfo::availablePorts();
+    qDebug() << "Serial ports count : " << listPorts.size();
 
+    foreach (const QSerialPortInfo &portInfo, listPorts) {
+        myCombo->addItem(portInfo.portName()+" "+portInfo.description());
+    }
+    myCombo->adjustSize();
 
-    // foreach (const QSerialPortInfo &portInfo, listPorts) {
-    //     ui->COMBox->addItem(portInfo.portName()+" "+portInfo.description());
-    // }
     qDebug() << "Ports update";
 }
 

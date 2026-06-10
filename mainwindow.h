@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <MyComboBox.h>
 #include <QDebug>
 #include <QMainWindow>
 #include <QMessageBox>
@@ -25,6 +26,7 @@ public:
     void InitCOM();
     void ReloadCOMList();
 
+
 private slots:
     void on_pushButton_Send_clicked();
 
@@ -32,6 +34,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QSerialPort *COMPORT;
+    MyComboBox *myCombo;
 };
 
 
