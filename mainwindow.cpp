@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "MyComboBox.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -7,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     InitCOM();
+
 
 
 }
@@ -20,7 +21,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::InitCOM()
 {
+    //Config Port Série
     COMPORT = new QSerialPort();
+
+    COMPORT->setBaudRate(QSerialPort::BaudRate::Baud19200);
+    COMPORT->setParity(QSerialPort::Parity::NoParity);
+    COMPORT->setDataBits(QSerialPort::DataBits::Data8);
+    COMPORT->setStopBits(QSerialPort::StopBits::OneStop);
+    COMPORT->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
+
+    //Config Liste Port COM
+    MyComboBox *myCombo = new MyComboBox(this);
+    connect(myCombo,&MyComboBox::aboutToPopup, this,&MainWindow::ReloadCOMList);
+
     const auto listPorts = QSerialPortInfo::availablePorts();
     qDebug() << "Serial ports count : " << listPorts.size();
 
@@ -30,19 +43,26 @@ void MainWindow::InitCOM()
         qDebug() << "System Location:    " << portInfo.systemLocation();
         qDebug() << "Description:        " << portInfo.description();
         qDebug() << "Manufacturer:       " << portInfo.manufacturer();
-        qDebug() << "Serial Number:      " << portInfo.serialNumber();
-
-
+        myCombo->addItem(portInfo.portName()+" "+portInfo.description());
     }
+    myCombo->adjustSize();
 
-    COMPORT->setBaudRate(QSerialPort::BaudRate::Baud19200);
-    COMPORT->setParity(QSerialPort::Parity::NoParity);
-    COMPORT->setDataBits(QSerialPort::DataBits::Data8);
-    COMPORT->setStopBits(QSerialPort::StopBits::OneStop);
-    COMPORT->setFlowControl(QSerialPort::FlowControl::NoFlowControl);
+
     //COMPORT->open(QSerialPort::ReadWrite);
 
+}
 
+
+void MainWindow::ReloadCOMList()
+{
+    ui->COMBox->clear();
+
+
+
+    // foreach (const QSerialPortInfo &portInfo, listPorts) {
+    //     ui->COMBox->addItem(portInfo.portName()+" "+portInfo.description());
+    // }
+    qDebug() << "Ports update";
 }
 
 void MainWindow::on_pushButton_Send_clicked()
@@ -59,11 +79,4 @@ void MainWindow::on_pushButton_Send_clicked()
 
 //COMPORT->write(ui->lineEdit_Serial_Data->text().toLatin1() + char(02) + char(1) + char(16) + char (1));
 
-void MainWindow::on_comboBox_activated(int index)
-{
-    ui->COMBox->clear();
-    foreach (const QSerialPortInfo &portInfo, listPorts) {
-        ui->COMBox->additem(portInfo.portName()+" "+portInfo.description());
-    }
-}
 

@@ -7,6 +7,7 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QString>
+#include <QMouseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,14 +23,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void InitCOM();
+    void ReloadCOMList();
 
 private slots:
     void on_pushButton_Send_clicked();
 
-    void on_comboBox_activated(int index);
 
 private:
     Ui::MainWindow *ui;
     QSerialPort *COMPORT;
 };
+
+
+
 #endif // MAINWINDOW_H
